@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/05 08:12:32 by ahallali          #+#    #+#             */
-/*   Updated: 2022/11/12 20:33:18 by ahallali         ###   ########.fr       */
+/*   Created: 2022/11/12 11:40:54 by ahallali          #+#    #+#             */
+/*   Updated: 2022/11/12 22:14:18 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 size_t	check_nl(char *buffer)
 {
@@ -69,7 +69,7 @@ char	*ft_getline(int fd,	char **keep)
 		if (nb)
 		{
 			buff[nb] = '\0';
-			tmp = ft_strjoin(*keep, buff);
+			tmp = ft_strjoin(*keep[fd], buff);
 			*keep = tmp;
 			tmp = NULL;
 			if (nl_index)
@@ -107,17 +107,21 @@ char	*get_next_line(int fd)
 	return (ft_getline(fd, &keep));
 }
 
-// int main ()
-// {
-// 	int fd;
-// 	char	*line = NULL;
-// 	fd = open("42_with_nl", O_RDONLY);	
-// 	 get_next_line(fd);
-// 	printf("%s", get_next_line(fd));
-// 	printf("%s", get_next_line(fd));
-// // // 	// printf("%s", get_next_line(fd));
-// // // 	// printf("%s", get_next_line(fd));
-// // // 	// get_next_line(fd);
-	
-//  }
-// // // // // // // // sleep(50000);
+int main ()
+{
+	int fd,fd2;
+	char *line = NULL;
+	fd = open("42_with_nl", O_RDWR);
+	fd2 =open("43_with_nl", O_RDWR);
+	 
+ printf("%s\n", get_next_line(fd));
+ printf("%s\n", get_next_line(fd2));
+ printf("%s\n", get_next_line(fd));
+ printf("%s\n", get_next_line(fd2));
+ printf("%s\n", get_next_line(fd));
+ printf("%s\n", get_next_line(fd2));
+// 	// printf("%s", get_next_line(fd));
+// 	// printf("%s", get_next_line(fd));
+// 	// printf("%s", get_next_line(fd));
+
+}
