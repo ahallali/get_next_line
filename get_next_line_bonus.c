@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 11:40:54 by ahallali          #+#    #+#             */
-/*   Updated: 2022/11/12 22:14:18 by ahallali         ###   ########.fr       */
+/*   Updated: 2022/11/13 00:03:05 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ char	*ft_line(char *keep, size_t nl_index)
 	i = 0;
 	if (!nl_index)
 	{
-			if (!keep || (keep && keep[0] == '\0'))
-				tmp = NULL;
-			else
-				tmp = ft_strdup(keep);
+		if (!keep || (keep && keep[0] == '\0'))
+			tmp = NULL;
+		else
+			tmp = ft_strdup(keep);
 	}
 	else
 	{
@@ -69,19 +69,18 @@ char	*ft_getline(int fd,	char **keep)
 		if (nb)
 		{
 			buff[nb] = '\0';
-			tmp = ft_strjoin(*keep[fd], buff);
+			tmp = ft_strjoin(*keep, buff);
 			*keep = tmp;
 			tmp = NULL;
+			nl_index = check_nl(*keep);
 			if (nl_index)
 				break ;
-			nl_index = check_nl(*keep);
 		}
 		else
 			break ;
 	}
-	if (*keep)	
-		nl_index = check_nl(*keep);
-	return (ft_filter(&tmp, nl_index, &keep));
+	if (*keep)
+		return (nl_index = check_nl(*keep), ft_filter(&tmp, nl_index, &keep));
 }
 
 char	*ft_filter(char **tmp, size_t nl_index, char ***keep)
@@ -100,28 +99,27 @@ char	*ft_filter(char **tmp, size_t nl_index, char ***keep)
 
 char	*get_next_line(int fd)
 {
-	static char	*keep;
-	
+	static char	*keep[10240];
+
 	if (fd < 0 || read(fd, NULL, 0) == -1)
 		return (NULL);
-	return (ft_getline(fd, &keep));
+	return (ft_getline(fd, &(keep[fd])));
 }
 
-int main ()
-{
-	int fd,fd2;
-	char *line = NULL;
-	fd = open("42_with_nl", O_RDWR);
-	fd2 =open("43_with_nl", O_RDWR);
-	 
- printf("%s\n", get_next_line(fd));
- printf("%s\n", get_next_line(fd2));
- printf("%s\n", get_next_line(fd));
- printf("%s\n", get_next_line(fd2));
- printf("%s\n", get_next_line(fd));
- printf("%s\n", get_next_line(fd2));
-// 	// printf("%s", get_next_line(fd));
-// 	// printf("%s", get_next_line(fd));
-// 	// printf("%s", get_next_line(fd));
+// int main ()
+// {
+// 	int fd,fd2;
+// 	char *line = NULL;
+// 	fd = open("42_with_nl", O_RDWR);
+// 	fd2 =open("43_with_nl", O_RDWR);
+//  printf("%s\n", get_next_line(fd));
+//  printf("%s\n", get_next_line(fd2));
+//  printf("%s\n", get_next_line(fd));
+//  printf("%s\n", get_next_line(fd2));
+//  printf("%s\n", get_next_line(fd));
+//  printf("%s\n", get_next_line(fd2));
+// // 	// printf("%s", get_next_line(fd));
+// // 	// printf("%s", get_next_line(fd));
+// // 	// printf("%s", get_next_line(fd));
 
-}
+// }
