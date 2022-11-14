@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/05 08:12:32 by ahallali          #+#    #+#             */
-/*   Updated: 2022/11/13 18:39:12 by ahallali         ###   ########.fr       */
+/*   Updated: 2022/11/14 13:16:38 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,6 @@ char	*ft_getline(int fd,	char **keep)
 			if (nl_index)
 				break ;
 		}
-		else
-			break ;
 	}
 	if (*keep)
 		nl_index = check_nl(*keep);
@@ -102,21 +100,8 @@ char	*ft_filter(char **tmp, size_t nl_index, char **keep)
 char	*get_next_line(int fd)
 {
 	static char	*keep;
-	printf("%s",keep);
+
 	if (fd < 0 || read(fd, NULL, 0) == -1 || BUFFER_SIZE < 0)
 		return (NULL);
-	if (close(fd))
-		keep = NULL;	
 	return (ft_getline(fd, &keep));
-}
-int main ()
-{
-	int fd = open ("aa",O_RDONLY);
-	printf("{%s}\n",get_next_line(fd));
-	close(fd);
-	fd = open ("aa",O_RDONLY);
-	printf("{%s}\n",get_next_line(fd));
-	close(fd);
-	return (0);
-
 }
