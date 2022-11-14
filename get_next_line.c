@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/05 08:12:32 by ahallali          #+#    #+#             */
-/*   Updated: 2022/11/13 16:19:03 by ahallali         ###   ########.fr       */
+/*   Updated: 2022/11/13 18:39:12 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,9 @@ char	*ft_getline(int fd,	char **keep)
 	nb = 1;
 	while (nb > 0)
 	{
-		nb = read (fd, buff, BUFFER_SIZE);
 		if (nb)
 		{
+			nb = read (fd, buff, BUFFER_SIZE);
 			buff[nb] = '\0';
 			tmp = ft_strjoin(*keep, buff);
 			*keep = tmp;
@@ -77,6 +77,8 @@ char	*ft_getline(int fd,	char **keep)
 			if (nl_index)
 				break ;
 		}
+		else
+			break ;
 	}
 	if (*keep)
 		nl_index = check_nl(*keep);
@@ -100,29 +102,21 @@ char	*ft_filter(char **tmp, size_t nl_index, char **keep)
 char	*get_next_line(int fd)
 {
 	static char	*keep;
-
+	printf("%s",keep);
 	if (fd < 0 || read(fd, NULL, 0) == -1 || BUFFER_SIZE < 0)
 		return (NULL);
+	if (close(fd))
+		keep = NULL;	
 	return (ft_getline(fd, &keep));
 }
-
-void	ft_putchar_fd(char c, int fd)
+int main ()
 {
-	write(fd, &c, 1);
-}
+	int fd = open ("aa",O_RDONLY);
+	printf("{%s}\n",get_next_line(fd));
+	close(fd);
+	fd = open ("aa",O_RDONLY);
+	printf("{%s}\n",get_next_line(fd));
+	close(fd);
+	return (0);
 
-void	ft_putstr_fd(char *s, int fd)
-{
-	if (s)
-	{
-		// printf("123212");
-		int i = 0;
-		while (s[i])
-		{
-			// puts("1");
-			ft_putchar_fd(s[i], fd);
-			i++;
-		}
-	}
-	
 }
