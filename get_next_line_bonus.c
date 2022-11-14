@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 11:40:54 by ahallali          #+#    #+#             */
-/*   Updated: 2022/11/13 00:03:05 by ahallali         ###   ########.fr       */
+/*   Updated: 2022/11/13 15:05:56 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,10 @@ char	*ft_getline(int fd,	char **keep)
 {
 	int		nb;
 	char	*tmp;
-	char	buff[BUFFER_SIZE + 1];
+	char	*buff;
 	size_t	nl_index;
 
+	buff = alloc_buff();
 	nl_index = 0;
 	nb = 1;
 	while (nb > 0)
@@ -76,23 +77,22 @@ char	*ft_getline(int fd,	char **keep)
 			if (nl_index)
 				break ;
 		}
-		else
-			break ;
 	}
 	if (*keep)
-		return (nl_index = check_nl(*keep), ft_filter(&tmp, nl_index, &keep));
+	nl_index = check_nl(*keep);
+	return (free(buff), ft_filter(&tmp, nl_index, keep));
 }
 
-char	*ft_filter(char **tmp, size_t nl_index, char ***keep)
+char	*ft_filter(char **tmp, size_t nl_index, char **keep)
 {
 	char	*line;
 
-	line = ft_line(**keep, nl_index);
-	*tmp = **keep;
+	line = ft_line(*keep, nl_index);
+	*tmp = *keep;
 	if (!nl_index)
-		**keep = NULL;
+		*keep = NULL;
 	else
-		**keep = ft_strdup(*tmp + nl_index);
+		*keep = ft_strdup(*tmp + nl_index);
 	free(*tmp);
 	return (line);
 }
@@ -105,21 +105,3 @@ char	*get_next_line(int fd)
 		return (NULL);
 	return (ft_getline(fd, &(keep[fd])));
 }
-
-// int main ()
-// {
-// 	int fd,fd2;
-// 	char *line = NULL;
-// 	fd = open("42_with_nl", O_RDWR);
-// 	fd2 =open("43_with_nl", O_RDWR);
-//  printf("%s\n", get_next_line(fd));
-//  printf("%s\n", get_next_line(fd2));
-//  printf("%s\n", get_next_line(fd));
-//  printf("%s\n", get_next_line(fd2));
-//  printf("%s\n", get_next_line(fd));
-//  printf("%s\n", get_next_line(fd2));
-// // 	// printf("%s", get_next_line(fd));
-// // 	// printf("%s", get_next_line(fd));
-// // 	// printf("%s", get_next_line(fd));
-
-// }

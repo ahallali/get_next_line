@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/05 08:12:29 by ahallali          #+#    #+#             */
-/*   Updated: 2022/11/12 16:44:47 by ahallali         ###   ########.fr       */
+/*   Updated: 2022/11/13 14:15:53 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,4 +93,14 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		p[i++] = s[start++];
 	p[i] = '\0';
 	return (p);
+}
+
+char	*alloc_buff(void)
+{
+	char	*buff;
+
+	buff = malloc (sizeof (char) * BUFFER_SIZE + 1);
+	if (!buff)
+		return (NULL);
+	return (buff);
 }

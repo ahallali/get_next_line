@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/05 08:12:36 by ahallali          #+#    #+#             */
-/*   Updated: 2022/11/12 20:37:06 by ahallali         ###   ########.fr       */
+/*   Updated: 2022/11/13 15:40:06 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ size_t	ft_strlen(const char *s);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strdup(const char *s);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
-char	*ft_filter(char **tmp, size_t nl_index, char ***keep);
+char	*ft_filter(char **tmp, size_t nl_index, char **keep);
 char	*get_next_line(int fd);
+char	*alloc_buff(void);
 
 #endif

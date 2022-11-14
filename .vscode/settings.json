@@ -1,9 +1,0 @@
-{
-    "files.associations": {
-        "*.excalidraw": "json",
-        "*.excalidrawlib": "json",
-        "fcntl.h": "c",
-        "get_next_line.h": "c",
-        "iostream": "cpp"
-    }
-}

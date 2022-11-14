@@ -6,12 +6,11 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 11:47:12 by ahallali          #+#    #+#             */
-/*   Updated: 2022/11/12 21:04:56 by ahallali         ###   ########.fr       */
+/*   Updated: 2022/11/13 14:15:47 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
-
 
 size_t	ft_strlen(const char *s)
 {
@@ -96,3 +95,12 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (p);
 }
 
+char	*alloc_buff(void)
+{
+	char	*buff;
+
+	buff = malloc (sizeof (char) * BUFFER_SIZE + 1);
+	if (!buff)
+		return (NULL);
+	return (buff);
+}
