@@ -26,5 +26,9 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_filter(char **tmp, size_t nl_index, char **keep);
 char	*get_next_line(int fd);
 char	*alloc_buff(void);
+#ifndef BUFFER_SIZE
+#define BUFFER_SIZE 1
+#endif
+
 
 #endif

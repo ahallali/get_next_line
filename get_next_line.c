@@ -6,7 +6,7 @@
 /*   By: ahallali <ahallali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/05 08:12:32 by ahallali          #+#    #+#             */
-/*   Updated: 2022/11/14 13:16:38 by ahallali         ###   ########.fr       */
+/*   Updated: 2022/11/13 15:06:02 by ahallali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,9 @@ char	*ft_getline(int fd,	char **keep)
 	nb = 1;
 	while (nb > 0)
 	{
+		nb = read (fd, buff, BUFFER_SIZE);
 		if (nb)
 		{
-			nb = read (fd, buff, BUFFER_SIZE);
 			buff[nb] = '\0';
 			tmp = ft_strjoin(*keep, buff);
 			*keep = tmp;
@@ -104,4 +104,30 @@ char	*get_next_line(int fd)
 	if (fd < 0 || read(fd, NULL, 0) == -1 || BUFFER_SIZE < 0)
 		return (NULL);
 	return (ft_getline(fd, &keep));
+}
+
+#include <fcntl.h>
+#include <stdio.h>
+#include "get_next_line.h"
+
+int main(void)
+{
+    int fd;
+    char *line;
+
+    fd = open("test.txt", O_RDONLY);
+    if (fd == -1)
+    {
+        perror("Error opening file");
+        return (1);
+    }
+
+    while ((line = get_next_line(fd)) != NULL)
+    {
+        printf("%s", line);
+        free(line);
+    }
+
+    close(fd);
+    return (0);
 }

@@ -105,3 +105,37 @@ char	*get_next_line(int fd)
 		return (NULL);
 	return (ft_getline(fd, &(keep[fd])));
 }
+
+
+int main(void)
+{
+    int fd1, fd2;
+    char *line1, *line2;
+
+    fd1 = open("file1.txt", O_RDONLY);
+    fd2 = open("file2.txt", O_RDONLY);
+    if (fd1 == -1 || fd2 == -1)
+    {
+        perror("Error opening files");
+        return (1);
+    }
+
+    printf("Reading from file1.txt and file2.txt simultaneously:\n");
+    while ((line1 = get_next_line(fd1)) || (line2 = get_next_line(fd2)))
+    {
+        if (line1)
+        {
+            printf("File1: %s", line1);
+            free(line1);
+        }
+        if (line2)
+        {
+            printf("File2: %s", line2);
+            free(line2);
+        }
+    }
+
+    close(fd1);
+    close(fd2);
+    return (0);
+}
